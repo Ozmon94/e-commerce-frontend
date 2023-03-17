@@ -11,6 +11,7 @@ import {
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { useShopContext } from "@/lib/context";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 const SingleProduct = () => {
   //Fetch Route
@@ -20,7 +21,7 @@ const SingleProduct = () => {
   //Reset quantity
   useEffect(() => {
     setQty(1);
-  }, []);
+  }, [setQty]);
   //Fetch Graphql Data
 
   const [results] = useQuery({
@@ -38,7 +39,7 @@ const SingleProduct = () => {
   };
   return (
     <SingleProductStyle>
-      <img src={image.data.attributes.formats.small.url} alt={title} />
+      <Image src={image.data.attributes.formats.small.url} alt={title} />
       <ProductInfo>
         <h3>{title}</h3>
         <p>{description}</p>

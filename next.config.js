@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images:{
+    domains:["lh3.googleusercontent.com"]
+  },
   async redirects() {
     return [{ source: "/cancel", destination: "/", permanent: true }];
   },

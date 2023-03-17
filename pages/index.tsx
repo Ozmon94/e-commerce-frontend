@@ -1,12 +1,9 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import { useQuery } from "urql";
 import { PRODUCT_QUERY } from "@/lib/query";
 import Product from "@/components/Product";
 import { StyledGallery } from "@/styles/StyledGallery";
 import { IProduct } from "@/types/product";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [results] = useQuery({ query: PRODUCT_QUERY });

@@ -6,14 +6,13 @@ import Cart from "@/components/Cart";
 import User from "@/components/User";
 import { useShopContext } from "@/lib/context";
 import { useUser } from "@auth0/nextjs-auth0/client";
-
-const { AnimatePresence } = require("framer-motion");
+import { AnimatePresence } from "framer-motion";
 
 const Nav: React.FC = () => {
   const { showCart, setShowCart, totalQuantities } = useShopContext();
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
 
-  console.log(user);
+
   return (
     <NavStyles>
       <Link href={`/`}>Styled</Link>

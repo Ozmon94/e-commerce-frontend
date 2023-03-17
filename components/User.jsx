@@ -3,6 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
 
 const User= () => {
   const route = useRouter();
@@ -15,10 +16,9 @@ const User= () => {
       </div>
     );
   }
-  // @ts-ignore
   return (
     <Profile onClick={() => route.push("/profile")}>
-      <img src={user.picture} alt={user.name} />
+      <Image src={user.picture} alt={user.name} width={40} height={40}/>
       <h3>{user.name}</h3>
     </Profile>
   );

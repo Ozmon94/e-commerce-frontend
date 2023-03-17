@@ -2,14 +2,45 @@ import React from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import formatMoney from "@/lib/formatMoney";
-const { motion } = require("framer-motion");
-
-const stripe = require("stripe")(
-  `${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`
+import { motion } from "framer-motion";
+import  { GetServerSideProps} from 'next'
+import Stripe from 'stripe'
+const stripe = new Stripe(
+  `${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`,{
+    apiVersion: '2022-11-15',
+  }
 );
-export async function getServerSideProps(params) {
+
+type CheckoutSession = {
+  "id": string,
+  "customer_details": {
+    "address": string,
+    "email": string,
+    "name": string,
+    "phone": string,
+    "tax_exempt": string,
+    "tax_ids": string
+  },
+  line_items:{
+    data: {
+      "id": string,
+      "description": string,
+      "quantity": 1
+      price:{
+      unit_amount:number
+    }
+    }[]
+
+  }
+
+
+}
+
+export const getServerSideProps: GetServerSideProps<{  order: Stripe.Checkout.Session }>= async(params) => {
+const session_id =  params.query.session_id as string
+
   const order = await stripe.checkout.sessions.retrieve(
-    params.query.session_id,
+    session_id,
     {
       expand: ["line_items"],
     }
@@ -17,7 +48,7 @@ export async function getServerSideProps(params) {
   return { props: { order } };
 }
 
-const Success: React.FC = ({ order }) => {
+const Success: React.FC<{ order: CheckoutSession }> = ({ order }) => {
   const route = useRouter();
   return (
     <Wrapper>
@@ -28,17 +59,18 @@ const Success: React.FC = ({ order }) => {
       >
         <h1>Thank you for your order!</h1>
         <h2>A confirmation email has been send to </h2>
-        <h2>{order.customer_details.email}</h2>
+        <h2>{ order.customer_details.email }</h2>
         <InfoWrapper>
           <Address>
             <h2>address</h2>
-            {Object.entries(order.customer_details.address).map(
+            {order.customer_details ?
+            Object.entries(order.customer_details.address).map(
               ([key, value]) => (
                 <p key={key}>
                   {key} : {value}
                 </p>
               )
-            )}
+            ): '' }
           </Address>
           <OrderInfo>
             <h2>Products</h2>

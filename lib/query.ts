@@ -1,4 +1,4 @@
-export const PRODUCT_QUERY: string = `
+export const PRODUCT_QUERY = `
 query{
   products {
     data{
