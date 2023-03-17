@@ -1,9 +1,10 @@
-import React from "react";
+
 import { FaUserCircle } from "react-icons/fa";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useUser } from "@auth0/nextjs-auth0/client";
-const User: React.FC = () => {
+
+const User= () => {
   const route = useRouter();
   const { user } = useUser();
   if (!user) {
@@ -14,6 +15,7 @@ const User: React.FC = () => {
       </div>
     );
   }
+  // @ts-ignore
   return (
     <Profile onClick={() => route.push("/profile")}>
       <img src={user.picture} alt={user.name} />
