@@ -43,7 +43,7 @@ export default async function handler(req, res) {
                     item.attributes.image.data.attributes.formats.thumbnail.url,
                   ],
                 },
-                unit_amount: item.attributes.price * 100,
+                unit_amount: Number(item.attributes.price * 100).toFixed(0),
               },
               quantity: item.quantity,
             };
