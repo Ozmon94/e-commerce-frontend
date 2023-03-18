@@ -13,7 +13,6 @@ import {
 } from "@/styles/CartStyles";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import getStripe from "@/lib/stripe";
-import Image from "next/image";
 
 //Animation variants
 
@@ -78,7 +77,7 @@ const Cart: React.FC = () => {
             cartItems.map((item) => {
               return (
                 <Card layout variants={card} key={item.id}>
-                  <Image
+                  <img
                     src={
                       item.attributes.image.data.attributes.formats.thumbnail
                         .url

@@ -11,7 +11,7 @@ import {
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { useShopContext } from "@/lib/context";
 import toast from "react-hot-toast";
-import Image from "next/image";
+
 
 const SingleProduct = () => {
   //Fetch Route
@@ -39,7 +39,7 @@ const SingleProduct = () => {
   };
   return (
     <SingleProductStyle>
-      <Image src={image.data.attributes.formats.small.url} alt={title} />
+      <img src={image.data.attributes.formats.small.url} alt={title} />
       <ProductInfo>
         <h3>{title}</h3>
         <p>{description}</p>
